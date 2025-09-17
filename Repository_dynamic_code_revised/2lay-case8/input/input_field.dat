@@ -1,0 +1,19 @@
+FILE NAME FOR THE INPUT STRESS         (see the input_file_description.txt)
+'./input/horiz-stress.dat'
+1st ROW: x_min / x_max / z_min / z_max (spatial domain for the input stress file [km] or [m]); 2nd ROW: grd_1 (grid step for the input stress file [km] or [m]) 
+0.D0	20.D0	0.D0	20.D0
+10.D0 
+Dz_snap / comp_dyke_stress-displ       (z-interval for output calculation: crack shape, stress and displ fields / if "comp_dyke_stress-displ" is .false., the stress and displacement fields will not be computed)
+5.D0 .false.
+dikeRF / n_pnt / grd_2                 (if dikeRF is .true. the dyke stress is computed in a ref frame with z parallel to the dike; n_pnt is the number on points for output stress and displ calculation; grd_2 is the grid step for plotting the principal stress [km] or [m])
+.true. 201 0.5D0
+scl                                    (scaling factor for plotting the dike shape)
+100.D0
+
+*******************************************************************************************************************
+** Note about the input/output units.                                                                            **
+** Providing input parameters in [km] and [MPa] or [m] and [kPa], will affect the units of the output files:     **
+** The output coordinates (x,z) will be in [km] or [m] respectively;                                             **
+** The output stress fields will be in [MPa] or [kPa] respectively;                                              **
+** The output displacement fields, dislocation opening (Ut), and slip (Ub) are given in [m] or [mm] respectively **
+*******************************************************************************************************************
