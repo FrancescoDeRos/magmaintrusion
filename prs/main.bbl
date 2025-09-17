@@ -1,0 +1,73 @@
+\begin{thebibliography}{}
+
+\bibitem[Dahm, 2000a]{dahm2000b}
+Dahm, T. (2000a).
+\newblock Numerical simulations of the propagation path and the arrest of
+  fluid-filled fractures in the earth.
+\newblock {\em Geophysical Journal International}, 141(3):623--638.
+
+\bibitem[Dahm, 2000b]{dahm2000a}
+Dahm, T. (2000b).
+\newblock On the shape and velocity of fluid-filled fractures in the earth.
+\newblock {\em Geophysical Journal International}, 142(1):181--192.
+
+\bibitem[Furst et~al., 2023]{furst2023}
+Furst, S., Maccaferri, F., and Pinel, V. (2023).
+\newblock Modeling the shape and velocity of magmatic intrusions, a new
+  numerical approach.
+\newblock {\em Journal of Geophysical Research: Solid Earth},
+  128(3):e2022JB025697.
+\newblock e2022JB025697 2022JB025697.
+
+\bibitem[Furst et~al., 2024]{furst2024}
+Furst, S., Pinel, V., and Maccaferri, F. (2024).
+\newblock Dynamics of magmatic intrusion: what can we learn from the comparison
+  of analog and numerical models?
+\newblock {\em Volcanica}, 7(1).
+
+\bibitem[Lecampion et~al., 2018]{lecampion2018}
+Lecampion, B., Bunger, A., and Zhang, X. (2018).
+\newblock Numerical methods for hydraulic fracture propagation: A review of
+  recent trends.
+\newblock {\em Journal of Natural Gas Science and Engineering}, 49:66--83.
+
+\bibitem[Maccaferri et~al., 2011]{maccaferri2011}
+Maccaferri, F., Bonafede, M., and Rivalta, E. (2011).
+\newblock A quantitative study of the mechanisms governing dike propagation,
+  dike arrest and sill formation.
+\newblock {\em Journal of Volcanology and Geothermal Research}, 208(1):39--50.
+
+\bibitem[Pansino et~al., 2022]{pansino2022}
+Pansino, S., Emadzadeh, A., and Taisne, B. (2022).
+\newblock Modeling dike propagation in both vertical length and horizontal
+  breadth.
+\newblock {\em Journal of Geophysical Research: Solid Earth},
+  127(10):e2022JB024593.
+\newblock e2022JB024593 2022JB024593.
+
+\bibitem[Peltier et~al., 2007]{peltier2007}
+Peltier, A., Staudacher, T., and Bachèlery, P. (2007).
+\newblock Constraints on magma transfers and structures involved in the 2003
+  activity at piton de la fournaise from displacement data.
+\newblock {\em Journal of Geophysical Research: Solid Earth}, 112(B3).
+
+\bibitem[Rivalta et~al., 2015]{rivalta2015}
+Rivalta, E., Taisne, B., Bunger, A., and Katz, R. (2015).
+\newblock A review of mechanical models of dike propagation: Schools of
+  thought, results and future directions.
+\newblock {\em Tectonophysics}, 638:1--42.
+
+\bibitem[Spence and Turcotte, 1990]{turcotte1990}
+Spence, D.~A. and Turcotte, D.~L. (1990).
+\newblock Buoyancy-driven magma fracture: A mechanism for ascent through the
+  lithosphere and the emplacement of diamonds.
+\newblock {\em Journal of Geophysical Research: Solid Earth},
+  95(B4):5133--5139.
+
+\bibitem[Weertman, 1971]{Weertman1971}
+Weertman, J. (1971).
+\newblock Theory of water-filled crevasses in glaciers applied to vertical
+  magma transport beneath oceanic ridges.
+\newblock {\em Journal of Geophysical Research (1896-1977)}, 76(5):1171--1183.
+
+\end{thebibliography}
