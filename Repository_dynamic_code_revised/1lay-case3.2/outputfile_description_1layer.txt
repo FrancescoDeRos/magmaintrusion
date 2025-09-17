@@ -1,0 +1,270 @@
+In this file are described the content of the output files from the DIKE-CODE: Crack_shape_rXX_iXXX.dat, xzSxxSxzSzz_rXX_iXXX.dat, xzUxUz_rXX_iXXX.dat, inplane_max_compr_stress.dat / inplane_min_compr_stress.dat, RUNINFO_XX.dat, XtZtDeE_XX.dat, XtZtDELTA_XX.dat, XtZtDELTAINF_XX.dat.
+These output files will be generated in a folder called "output", that has to be located within the same directory where the DYKE-SIMULATION is executed (here you can find them in EXAMPLE/EXP34/output). The "output" folder must not contain any output file when running the DYKE-SIMULATION (a DYKE-SIMULATION cannot over-write output files) 
+
+*******************************************************************************************************************
+** Note about the input/output units.                                                                            **
+** Providing input parameters in [km] and [MPa] or [m] and [kPa], will affect the units of the output files:     **
+** The output coordinates (x,z) will be in [km] or [m] respectively;                                             **
+** The output stress fields will be in [MPa] or [kPa] respectively;                                              **
+** The output displacement fields, dislocation opening (Ut), and slip (Ub) are given in [m] or [mm] respectively **
+*******************************************************************************************************************
+
+*******************************************************************************************************************
+Additional note: The output files Crack_shape_rXX_iXXX.dat, xzSxxSxzSzz_rXX_iXXX.dat, xzUxUz_rXX_iXXX.dat are printed out at the beginning of the simulation (iteration number 0 of the propagation procedure), at the end of the simulation (last iteration step before the program stops), and at prescribed depths given as input (see Dz_snap in inputfile_description.txt).
+The output files inplane_max_compr_stress.dat and inplane_min_compr_stress.dat are printed at the beginning of the simulation.
+The other output files (RUNINFO_XX.dat, XtZtDeE_XX.dat, XtZtDELTA_XX.dat, XtZtDELTAINF_XX.dat) contains paramiters that are computed and printed at each propagation step of the simulation. 
+*******************************************************************************************************************
+*******************************************************************************************************************
+
+
+*******************************************************************************************************************
+FILE: Crack_shape_rXX_iXXX.dat
+*******************************************************************************************************************
+(x,z) coordinates of the points for drawing the shape of the dyke (in [km] or [m] depending on input units). x-axis is horizontal rightwards, z-axis vertical downwards.
+Contains (2*n_dis+2) lines (2 points for each dislocation element plus the edges of the crack, n_dis is the number of dislocation elements), and 2 columns (x and z values). Opening and shear of the crack are exaggerated by the "scaling factor" (scl) given in the input file.
+rXX  is the dyke number in the current simulation (from 1 to the "number of dykes" given in input_BE.dat)
+iXXX is the iteration number at which the output file is printed.
+*******************************************************************************************************************
+*******************************************************************************************************************
+*******************************************************************************************************************
+
+
+*******************************************************************************************************************
+FILE: xzSxxSxzSzz_rXX_iXXX.dat
+*******************************************************************************************************************
+Stress field induced by the dike in the simulation domain (in [MPa] or [kPa] depending on input units). In order to obtain the total stress, the stress induced by the dike should be superposed (added) to the initial stress (as given in the input stress file) and the lithostatic pressure.
+Contains n_pnt*n_pnt lines ("n_pnt" defined in input_field.dat) and 5 columns.
+In each line are printed the coordinates (x,z) for the point where the stress is computed, and the stress components Sxx, Sxz, and Szz.
+If "dikeRF_output" in input_field.dat is .false.: z-axis vertical downwards, x-axis is horizontal rightwards;
+If "dikeRF_output" in input_field.dat is .true.:  z-axis is parallel to the average dip angle of the dike, x-axis is perpendicular rightwards;
+rXX  is the dyke number in the current simulation (from 1 to the "number of dykes" given in input_BE.dat)
+iXXX is the iteration number at which the output file is printed.
+*******************************************************************************************************************
+*******************************************************************************************************************
+*******************************************************************************************************************
+
+
+*******************************************************************************************************************
+FILE: xzUxUz_rXX_iXXX.dat
+*******************************************************************************************************************
+Displacement field induced by the dike in the simulation domain (in [cm] or [mm] depending on input units). z-axis vertical downwards, x-axis is horizontal rightwards;
+Contains n_pnt*n_pnt lines ("n_pnt" defined in input_field.dat) and 4 columns.
+In each line are printed the coordinates (x,z) for the point where the displacement is computed, and the displacement components Ux and Uz.
+rXX  is the dyke number in the current simulation (from 1 to the "number of dykes" given in input_BE.dat)
+iXXX is the iteration number at which the output file is printed.
+*******************************************************************************************************************
+*******************************************************************************************************************
+*******************************************************************************************************************
+
+
+*******************************************************************************************************************
+FILE: zPlit.dat
+*******************************************************************************************************************
+Lithostatic pressure profile with depth
+It has the same spatial resolution (along z) as the background stress field, and 2 columns.
+1 - z, depth, varying in the elastic domain defined by the background stress field file.
+2 - Lithostatic pressure value (isotropic)
+*******************************************************************************************************************
+*******************************************************************************************************************
+*******************************************************************************************************************
+
+
+*******************************************************************************************************************
+FILE: inplane_max_compr_stress.dat / inplane_min_compr_stress.dat
+*******************************************************************************************************************
+Direction of principal stress (max and min compression respectively)
+Contains 5 columns:
+1 - x coordinate for the stress direction calculation
+2 - z coordinates
+3 - max or min compressive direction, in degrees from the vertical and positive counterclockwise
+4 - max or min eigenvalue
+5 - difference between max and min eigenvalues
+*******************************************************************************************************************
+*******************************************************************************************************************
+*******************************************************************************************************************
+
+
+*******************************************************************************************************************
+FILE: RUNINFO_XX.dat
+*******************************************************************************************************************
+Contains several input/output parameters which are printed at each iteration of the simulation. XX stands again for the dyke number (from 1 to the "number of dykes" given in the input file)
+The parameters in this file are listed below:
+
+#---------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------
+ n_dis_input  -> number of elementary dislocations given as input
+ A0           -> cross sectional area given as input (at vanishing confining pressure)
+ U            -> gravitational energy associated with the initial dyke emplacement
+ W_r          -> strain energy associated with rock elastic deformation at initial dyke emplacement 
+ W_f          -> strain energy associated with fluid compression at initial dyke emplacement
+ Etot         -> total energy (sum of the three above) associated with the initial dyke emplacement
+ n_dis output -> number of dislocation elements after solving the crack problem (computing the opening and shear along the crack). Must be less or equal to n_dis_input because dislocations (at the dyke "tail") which display a negative opening are erased.
+ A            -> cross sectional area of the crack after solving the crack problem
+ delta_in     -> initial dip angle of the dyke (as defined in the input file) in degrees counterclockwise from vertical     
+ x_start      -> x coordinate of the dyke tip as given in the input file
+ z_start      -> z coordinate of the dyke tip as given in the input file
+ OverP_av     -> average dyke overpressure [KPa] if input is in [m] ([MPa] if input is in [km])
+ OverP_max    -> maximum dyke overpressure [KPa] if input is in [m] ([MPa] if input is in [km])
+ ITER         -> iteration number (from here until the next ITER, the values of parameters will refer to this iteration number)
+ --------------------------------------------------
+ ** TEST DIRECTIONS OF PROPAGATION **              
+ --------------------------------------------------
+here the values of the following parameters are given for each of the direction of propagation which are tested:
+ U, W_r, W_f, Etot -> as described above
+ delta             -> dip angle of the crack tip 
+ n_dis             -> current number of dislocation 
+ esc_dir           -> logical T/F parameter defining whether or not the dyke will propagate further in that direction
+ --------------------------------------------------
+from here on the iteration will continue in the direction selected according to the max energy release (obtained by subtracting the total energy Etot associated with the propagation in each direction, to the energy Etot associated with the previous iteration)
+ 
+ n_dis      -> number of dislocation elements
+ DeE        -> total energy released by propagating in the selected direction     
+ delta      -> dip angle of the crack tip
+ Plit (XX)  -> lithostatic pressure acting at the element XX of the BE crack     
+ x0z0(1,1)  -> x coordinates of the tail of the crack (x of the center of the dislocation element number 1)
+ x0z0(1,2)  -> z coordinates of the tail of the crack (z of the center of the dislocation element number 1)
+ A_iter     -> cross sectional area of the crack
+ x_top      -> x coordinate of the tip of the crack
+ z_top      -> z coordinate of the tip of the crack 
+ OverP_av   -> average overpressure
+ Ut_max     -> maximum opening of the crack
+ Ut_last_el -> opening of the lowermost element of the crack (crack tail), which is the element number 1
+ Ub_max     -> maximum shear on the crack
+ Ub_last_el -> shear of the lowermost element of the crack (crack tail), which is the element number 1
+#---------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------
+*******************************************************************************************************************
+*******************************************************************************************************************
+*******************************************************************************************************************
+
+
+*******************************************************************************************************************
+FILE: XtZtDeE_XX.dat
+*******************************************************************************************************************
+Dike path and energy release associated with each iteration step of the dyke simulation number XX
+Contains N_ITER+n_dis_out lines, and 3 columns
+where n_dis_out is the number of dislocations when iteration 1 starts (equal or less the number of dislocations given as input)
+N_ITER is the total number of iteration for the simulation.
+
+In the first n_dis_out lines the 3 clumns contains:
+x and z coordinates of the dislocation elements of the crack at iteration zero, and a constant 0 value in the 3rd column
+
+At lines from n_dis_out+1 to N_ITER the 3 columns contains:
+x and z coordinates of the uppermost dislocation element (crack tip), and the energy released for propagation at that iteration.
+*******************************************************************************************************************
+*******************************************************************************************************************
+*******************************************************************************************************************
+
+
+*******************************************************************************************************************
+FILE: XtZtPlitSigNSigT_XX.dat
+*******************************************************************************************************************
+Lithostatic pressure, normal stress and shear stress acting at the tip element of the BE crack along the propagation path
+Contains N_ITER lines, and 5 columns (where N_ITER is the total number of iteration for the simulation).
+1 - x coordinate of the center of the uppermost dislocation element (crack tip)
+2 - z coordinate of the center of the uppermost dislocation element (crack tip)
+3 - Lithostatic pressure acting at depth z (isotropic)
+4 - Normal component (with respect to the dislocation element) of the background stress field acting in x,z (do not account for the lithostatic pressure)
+5 - Shear component (with respect to the dislocation element) of the background stress field acting in x,z
+*******************************************************************************************************************
+*******************************************************************************************************************
+*******************************************************************************************************************
+
+
+*******************************************************************************************************************
+FILE: XtZtDELTA_XX.dat
+*******************************************************************************************************************
+Parameters related with DELTA values calculation as computed at each iteration of dyke simulation number XX
+Contains N_ITER lines and 10 columns:
+1 - x coordinate of the uppermost dislocation element (crack tip)
+2 - z coordinate of the uppermost dislocation element (crack tip)
+3 - OverP_av   -> average overpressure
+4 - L_norm     -> normalized length of the crack (normalized by the initial depth of the upper tip of the dyke)
+5 - Sig_xz_av  -> shear stress in a reference frame with z axis parallel to the average dip of the dyke
+6 - Sig_xz_n   -> shear stress in a reference frame with z axis parallel to the dip of the tip element
+7 - Sig_xz_max -> shear stress in the plane of maximum shear
+8 - DELTA1     -> DELTA value computed as Sig_xz_av/(OverP_av*L_norm)
+9 - DELTA2     -> DELTA value computed as Sig_xz_n/(OverP_av*L_norm)
+10- DELTA3     -> DELTA value computed as Sig_xz_max/(OverP_av*L_norm)
+*******************************************************************************************************************
+*******************************************************************************************************************
+*******************************************************************************************************************
+
+
+*******************************************************************************************************************
+FILE: XtZtDELTAINF_XX.dat
+*******************************************************************************************************************
+Contains several input/output parameters related with DELTA calculations which are printed at each iteration step of the dyke simulation number XX
+The parameters in this file are listed below:
+
+ ITER                   -> iteration number
+ x_top, z_top           -> x and z coordinates of the uppermost dislocation element (crack tip)
+ S_xx, S_zz, Sxz        -> stress components at the dike tip computed in a reference frame with z vertical
+ dip_av                 -> average dip angle of the dyke (from the vertical positive counterclockwise
+ dip_ndis               -> dip angle of the uppermost dyke element
+ dip_max                -> direction of maximum shear (+ or - 45 degrees from one of the principal stress direction, no friction) is given with respect to vertical and positive counterclockwise
+ S_xz_av                -> shear stress in a reference frame with z axis parallel to the average dip of the dyke
+ S_xz_n                 -> shear stress in a reference frame with z axis parallel to the dip of the tip element
+ S_xz_max               -> shear stress in the plane of maximum shear
+ OverP_av               -> average overpressure     
+ L_norm                 -> normalized length of the crack (normalized by the initial depth of the upper tip of the dyke)     
+ DELTA1, DELTA2, DELTA3 -> DELTA value computed as: Sig_xz_av/(OverP_av*L_norm), Sig_xz_n/(OverP_av*L_norm), Sig_xz_max/(OverP_av*L_norm) respectively
+*******************************************************************************************************************
+*******************************************************************************************************************
+*******************************************************************************************************************
+
+
+*******************************************************************************************************************
+FILE: Overpressure_XXX_XX.dat
+*******************************************************************************************************************
+Contains the overpressure estimate along the crack which are printed at each iteration step XXX of the dyke simulation number XX.
+The parameters in this file are listed below:
+
+ i                  	-> Dislocation element number
+ OverP_av(i)            -> Overpressure at dislocation element i
+ DPvisc(i)				-> Viscous pressure drop at dislocation element i
+*******************************************************************************************************************
+*******************************************************************************************************************
+*******************************************************************************************************************
+
+
+*******************************************************************************************************************
+FILE: Ut_XXX_XX.dat
+*******************************************************************************************************************
+Contains the openings of each dislocation element of the crack and are printed at each iteration step XXX of the dyke simulation number XX.
+The parameters in this file are listed below:
+
+ i                		-> Dislocation element number
+ Ut(i)            		-> Full opening of dislocation element i
+*******************************************************************************************************************
+*******************************************************************************************************************
+*******************************************************************************************************************
+
+
+*******************************************************************************************************************
+FILE: Ut_STA_XXX_XX.dat
+*******************************************************************************************************************
+Contains the openings of each dislocation element of the STATIONARY crack, i.e to initiate the dynamic solution. They are printed at each iteration step XXX of the dyke simulation number XX.
+The parameters in this file are listed below:
+
+ i                		-> Dislocation element number
+ Ut(i)            		-> Full opening of dislocation element i
+ DPvisc(i)				-> Viscous pressure drop at dislocation element i
+*******************************************************************************************************************
+*******************************************************************************************************************
+*******************************************************************************************************************
+
+
+*******************************************************************************************************************
+FILE: XtZtvel_XX.dat
+*******************************************************************************************************************
+Contains the velocity that balances the energy budget and the maximum opening of the crack which are printed at each iteration step of the dyke simulation number XX.
+The parameters in this file are listed below:
+
+ x 						-> coordinate of the uppermost dislocation element (crack tip)
+ z 						-> coordinate of the uppermost dislocation element (crack tip)
+ v 						-> Crack velocity
+ max(Ut(i))        		-> Maximum full opening of all dislocation elements at the current iteration
+*******************************************************************************************************************
+*******************************************************************************************************************
+*******************************************************************************************************************
