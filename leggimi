@@ -1,3 +1,5 @@
 Autore: Francesco De Rose - 11/08/2025 Cosenza (CS).
 codice per leggere e calcolare Kc, qk1.py -->singolo strato; qk.py-->doppio strato
-i file .py nella cartella calcolano la fracture thoughness in base alle quantità riportate nei file di input con cui sono stati eseguiti i binari a seconda del singolo strato o del doppio strato, fare attenzione alle unità di misura come indicato nell'inputfile_description di furst2023. modifica all'interno del punto.py il percorso che porta al file "input_BE.dat" dove sono stati definiti gli opportuni parametri; scomodo ma la soluz. più indolore.
+i file .py nella cartella calcolano la fracture thoughness in base alle quantità riportate nei file di input con cui sono stati eseguiti i binari a seconda del singolo strato
+o del doppio strato, fare attenzione alle unità di misura come indicato nell'inputfile_description di furst2023. modifica all'interno del punto.py il percorso che porta al
+file "input_BE.dat" dove sono stati definiti gli opportuni parametri; scomodo ma la soluz. più indolore.
