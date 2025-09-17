@@ -1,0 +1,124 @@
+In this file are described the content of the three input files for the DYKE-CODE: input_BE.dat, input_field.dat, and INPUT_STRESS_FILE.dat
+These input files must be located in a folder called "input", within the same directory where the DYKE-SIMULATION is executed (here you will find them in EXAMPLE/EXP34/input). 
+The Fortran type of variable for the input parameters are given as follow:
+Double precision -> [D] (1.123D0)
+Integer          -> [I] (1)
+Logical          -> [L] (.true./.false.)
+Character String -> [S] ('string of character')
+*******************************************************************************************************************
+** Note about the input/output units.                                                                            **
+** Providing input parameters in [km] and [MPa] or [m] and [kPa], will affect the units of the output files:     **
+** The output coordinates (x,z) will be in [km] or [m] respectively;                                             **
+** The output stress fields will be in [MPa] or [kPa] respectively;                                              **
+** The output displacement fields, dislocation opening (Ut), and slip (Ub) are given in [m] or [mm] respectively **
+*******************************************************************************************************************
+
+
+*******************************************************************************************************************
+FILE: input_BE.dat
+*******************************************************************************************************************
+Contains parameters defining the geometry of boundary element (BE) crack, the properties of the elastic domain, and the properties of the fluid filling the crack.
+The reference frame for input coordinates is with x-axis horizontal rightwards, and z-axis vertical downwards. The upper boundary for the elastic domain is necessarily z=0 (elastic free surface).
+The following parameters will have to be provided in the input_BE.dat file:
+
+** Rock and fluid parameters: provide the parameters for each of the lower and upper layers in line (one line for each layer, 1st line is for the lower layer and the 2nd is for the upper one):
+MU      	-> [D] Rigidity of rock (or gelatin) layer [MPa] or [kPa]
+NU      	-> [D] Poisson ratio of rock (or gelatin) layer
+rhoR1   	-> [D] Density of rock (or gelatin) layer [kg/dm^3]
+
+z_dns   	-> [D] Depth of a density transition [km] or [m] (if there's no density transition, enter z_dns=0.D0)
+z_ref   	-> [D] z at which the lithostatic stress vanishes
+
+rhoM   		-> [D] Density of magma (or other fluids) [kg/dm^3]
+K       	-> [D] Bulk modulus of magma (or fluid) [MPa] or [kPa]
+
+v			-> [D] Velocity of hydrofracture [km/s] or dyke [m/s]. If vel_val is .true. the value is the initial velocity of the crack.
+eta			-> [D] Viscosity of fluid [kPa*s] or magma [MPa*s]
+vel_var		-> [L] If .true. search for the velocity that balance the energy budget
+
+** Number of dikes for the current simulation and parameters defining their geometry:
+n_dikes -> [I] Number of dikes for a single simulation
+
+** If n_dikes>1, provide the upper tip coordinates (X_start,Z_start), cross sectional area (A0) and initial dip angle (delta0) for each dike in line (one line for each dike):
+X_start		-> [D] x coordinate(s) of the upper tip of the dike(s) [km] or [m]
+Z_start		-> [D] z coordinate(s) of the upper tip of the dike(s) [km] or [m]
+A0			-> [D] Cross sectional area occupied by the fluid at vanishing lithostatic pressure [km^2] or [m^2]. Represent the 2D equivalent to the volume of fluid filling the crack. Given the rock parameters, A0 defines the so called "critical length for propagation" (Lc) according to Weertman crack theory (Weertman 1971).  
+delta0		-> [D] Initial dip angle of the dike, in degrees from vertical positive counterclockwise
+
+X_start(1), 		Z_start(1),			A0(1),			delta0(1)
+X_start(2), 		Z_start(2),			A0(2), 			delta0(2)
+[...],				[...],				[...],			[...]
+X_start(n_dikes), 	Z_start(n_dikes),	A0(n_dikes),	delta0(n_dikes)
+
+** If n_dikes>1, these - and the following - parameters will apply to all dikes:
+n_dis_in -> [I] number of dislocation elements for the BE crack (may vary during the simulation)
+Hd0      -> [D] length of dislocation elements [km] or [m] (will be constant during the simulation)
+** Note that the combination of n_dis_in and Hd0 define the initial length of the crack (L0). If L0>Lc (with Lc the critical length for propagation), the crack length will shorten from the bottom (therefore the number of dislocation element will decrease) until the length Lc is reached, and the propagation procedure will start; if L0<Lc, the propagation procedure will start and the crack will grow in the favourite direction of propagation (the fracture will elongate and the number of dislocation elements will increase). In this case the initial fluid-filled fracture will be additionally over-pressurized because of fluid compression within a initial fracture with length shorter than Lc.  
+
+** Parameters defining the initial dip angle for the dike(s):
+delta_optimal -> [L] If .true. the dip angle will be perpendicular to sig3 (optimally oriented dikes), if .false. the dip angle will be red  as delta0.
+delta0        -> [D] Initial dip angle of the dike, in degrees from vertical positive counterclockwise
+
+** Parameters defining the crack propagation procedure:
+n_iter                           			-> [I] maximum number of iterations for the propagation procedure (propagation step consists in adding a dislocation element at the crack tip)
+n_dir                            			-> [I] number of direction of propagation that will be tested at each propagation step
+alfa                             			-> [D] angle between each of the tested direction of propagation [degrees]
+x_stop_min / x_stop_max / z_stop 		 	-> [D] left / right / upper boundaries of the propagation domain (the simulation will stop if the dike reaches one of these boundaries)
+E_prop1 / E_prop2                  			-> [D] energy threshold for dike propagation [MPa*m] or [kPa*mm] for the lower and upper layers respectively
+*******************************************************************************************************************
+*******************************************************************************************************************
+*******************************************************************************************************************
+
+
+*******************************************************************************************************************
+FILE: input_field.dat
+*******************************************************************************************************************
+Contains parameters related with the input stress field file (external stress acting in the elastic domain), and output files (crack shape, stress and displacement fields induced by the dike in the elastic domain, principal stress directions of the input stress file).
+The following parameters will have to be provided in the input_field.dat file:
+
+** input stress field (see also the description for the FILE 'INPUT_STRESS_FILE.dat'):
+input_stress                  -> [S] file name and path of the input stress file (example: './input/INPUT_STRESS_FILE.dat')
+x_min / x_max / z_min / z_max -> [D] spatial domain for the input stress file [km] or [m] (will also define the output domain for the calculation of stress and displacement fields induced by the dike)
+grd_1                         -> [D] grid step for the input stress file [km] or [m]
+
+** output stress and displacement fields (the domain for the calculation of output fields is defined by the domain of the input stress):
+comp_dyke_stress -> [L] Enter .true. for printing the output files with the stress and displacement fields induced by the dyke in the elastic domain (they will be printed every "Dz_snap" interval)
+Dz_snap          -> [D] z-interval for printing the output files for dike stress, displacement, and shapes [km] or [m]. These output files are not printed at each propagation step, they will be printed each time the dike tip reaches a depth z=n*Dz_snap, with n integer (and z>z_stop).
+dikeRF_optimal   -> [L] Enter .true. to get the output stress field in a reference frame with z parallel to the average dip angle of the dike; .false. for the output stress field on a reference frame with z vertical (output files: xzSxxSxzSzz_rXX_iXXX.dat)
+n_pnt            -> [I] number of points for output stress and displacement calculation. The output domain will be divided on a grid with n_pnt*n_pnt, stress and displacements will be calculated at each node (output files: xzSxxSxzSzz_rXX_iXXX.dat and xzUxUz_rXX_iXXX.dat)
+grd_2            -> [D] grid step for the output-files containing the directions of principal stress given by the input stress [km] or [m] (output files: inplane_max[min]_compr_stress.dat)
+
+** crack shape:
+scl -> [D] Scaling factor for plotting the dike shape. Exaggerate crack opening and slip by the given value (output files: crack_shape_rXX_iXXX.dat)
+*******************************************************************************************************************
+*******************************************************************************************************************
+*******************************************************************************************************************
+
+
+*******************************************************************************************************************
+FILE: 'INPUT_STRESS_FILE.dat' (actual name defined by 'input_stress' parameter in the 'input_field.dat' file)
+*******************************************************************************************************************
+Contains the stress components for the input stress field (i.e. external or background stress), acting in the elastic domain.
+The input stress must be defined on a regular grid.
+The reference frame must be with x-axis horizontal rightwards, and z-axis vertical downwards. The free surface (if included in the input stress domain) must be in z=0.
+The number of lines must be equal to the number of nodes (N) of the regular grid, so that N=[(x_max-x_min)/grd_1 + 1]*[(z_max-z_min)/grd_1 + 1].
+The number of columns must be 5: x, z, Sxx, Szz, Sxz (coordinates in [km] or [m] and stress components in [MPa] or [kPa]).
+
+The first line must refer to the grid point in the lower-left corner of the input stress domain, the last line refer to the upper-right corner. The grid points in the input stress file must be ordered from the first (lower-left corner) to the last (upper-right corner) moving along x (from left to right) and then along z (from bottom to top).
+
+If we number the grid points from 1 to N=Nx*Nz, where:
+Nx=(x_max-x_min)/grd_1 + 1 (number of nodes along x)
+Nz=(z_max-z_min)/grd_1 + 1 (number of nodes along z)
+
+We can represent the grid for the input stress as: 
+(Nz-1)*Nx+1 -> (Nz-1)*Nx+2 -> [...] -> Nz*Nx
+      [...] ->       [...] -> [...] -> [...]
+       Nx+1 ->        Nx+2 -> [...] ->  2*Nx
+          1 ->           2 -> [...] ->    Nx
+
+where the index of each node represent the line number at which the corresponding node appear in the input file.
+*******************************************************************************************************************
+*******************************************************************************************************************
+*******************************************************************************************************************
+
+

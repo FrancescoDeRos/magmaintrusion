@@ -1,0 +1,34 @@
+Input parameters for the boundary element code.
+MU / NU / rhoR1                                 (Rigidity [MPa or kPa], Poisson ratio, density of lower layer [kg/dm^3], first row, and upper layer, second row, respectively) 
+20.D3   0.25D0   3.0D0
+10.D3   0.25D0   3.0D0
+z_dns / z_ref                                   (z of density transition [km or m], z at which the lithostatic stress vanishes)
+15.D0	-10.D0
+rhoM / K                                        (density of magma - or other fluids [kg/dm^3], bulk modulus of magma - or fluid [MPa] or [kPa])
+2.7D0   20.D3
+v / eta / vel_var                               (velocity of hydrofracture [m/s] or dyke [km/s], viscosity of fluid [kPa*s] or magma [MPa*s], search for the velocity that balance the energy budget)
+0.8D-3  100.D-6  .true.
+n_dikes                                         (number of dikes for a single simulation)
+1
+X_start and Z_start, A0 and Delta0              (coordinates of dike tips [km] or [m], reference cross sectional area [km^2] or [m^2], dip angle [degrees] from veritical, positive counterclockwise). Provide a number "n_dikes" of rows
+5.D0  15.0D0  0.009D0  0.0D0
+n_dis / Hd0                                     (number of dislocations, length of dislocation elements [km] or [m])
+145	0.05D0
+delta_optimal                                   (delta_optimal=.true. the dike will be optimally oriented dikes, .false. the dip angle of the dike will be red as Delta0)
+.false.
+n_iter                                          (maximum number of iterations)
+1000
+n_dir / alfa                                    (number of direction of propagation that will be tested at each iteration step, angle between them [degrees])
+1	0.5D0
+x_stop_min / x_stop_max / z_stop                (Propagation domain [km] or [m])
+-5.D0       10.D0        -5.1D0
+E_prop1 / E_prop2                               (energy threshold for dike propagation [MPa*m] or [kPa*mm])
+16.0D0 8.0D0
+
+*******************************************************************************************************************
+** Note about the input/output units.                                                                            **
+** Providing input parameters in [km] and [MPa] or [m] and [kPa], will affect the units of the output files:     **
+** The output coordinates (x,z) will be in [km] or [m] respectively;                                             **
+** The output stress fields will be in [MPa] or [kPa] respectively;                                              **
+** The output displacement fields, dislocation opening (Ut), and slip (Ub) are given in [m] or [mm] respectively **
+*******************************************************************************************************************
