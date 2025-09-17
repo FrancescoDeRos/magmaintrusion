@@ -1,0 +1,33 @@
+Input parameters for the boundary element code.
+MU / NU / rhoR1                                 (Rigidity [MPa or kPa], Poisson ratio, density of lower layer [kg/dm^3], respectively) 
+20D3   0.25D0   3.D0
+z_dns / rhoR2  / free_surf  / z_ana             (z of density transition [km or m], density of upper layer [kg/dm^3] respectively; if .true. elastic free surface in z=0; if .true. read an input path )
+0.D0	0.D0  .false.  .false.
+rhoM / K                                   		(density of magma - or other fluids [kg/dm^3], bulk modulus of magma - or fluid [MPa] or [kPa], reference cross sectional area [km^2] or [m^2])
+2.7D0   20.D3   
+v / eta  / vel_var                              (velocity of hydrofracture [m/s] or dyke [km/s], viscosity of fluid [kPa*s] or magma [MPa*s], search for the velocity that balances the energy budget)
+1.5D-3  1.D-4  .true.
+n_dikes                                         (number of dikes for a single simulation)
+1
+X_start and Z_start, first and second rows      (coordinates of dike tips [km] or [m]). reference cross sectional area [km^2] or [m^2] and the dip angle of the dike will be red as delta0 [degrees] from veritical, positive counterclockwise). Provide a number "n_dikes" of [X_start,Z_start] )
+1.0D0 10.0D0 0.009D0 0D0
+n_dis / Hd0                                     (number of dislocations, length of dislocation elements [km] or [m])
+60	0.1D0
+delta_optimal / delta0                          (delta_optimal=.true. the dike will be optimally oriented dikes, .false. the dip angle of the dike will be red as delta0 [degrees] from veritical, positive counterclockwise)
+.false.		0.0D0
+n_iter                                          (maximum number of iterations)
+1000
+n_dir / alfa                                    (number of direction of propagation that will be tested at each iteration step, angle between them [degrees])
+1	1.D0
+x_stop_min / x_stop_max / z_stop / z_load       (Propagation domain [km] or [m]; if z_load>0, stressfield induced by the load is added from z=z_load)
+-7.5D0       7.5D0        0.010D0   -0.001
+E_prop                                          (energy threshold for dike propagation [MPa*m] or [kPa*mm])
+14.0D0
+
+*******************************************************************************************************************
+** Note about the input/output units.                                                                            **
+** Providing input parameters in [km] and [MPa] or [m] and [kPa], will affect the units of the output files:     **
+** The output coordinates (x,z) will be in [km] or [m] respectively;                                             **
+** The output stress fields will be in [MPa] or [kPa] respectively;                                              **
+** The output displacement fields, dislocation opening (Ut), and slip (Ub) are given in [m] or [mm] respectively **
+*******************************************************************************************************************
